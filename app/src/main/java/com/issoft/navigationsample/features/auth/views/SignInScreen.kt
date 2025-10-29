@@ -1,4 +1,4 @@
-package com.issoft.navigationsample.features.auth
+package com.issoft.navigationsample.features.auth.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -25,11 +24,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -51,6 +48,8 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
                   viewModel : SignInViewModel = koinViewModel()
 ){
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    // We can handle login success using event from viewmodel
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(viewModel.events, lifecycleOwner.lifecycle) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -63,6 +62,7 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
             }
         }
     }
+
     Scaffold(modifier = Modifier
         .fillMaxSize(),
         topBar = {
@@ -118,7 +118,7 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
                    Text("Sign in")
                 }
                 if (state.isLoading)
-                    LoadingIndicator(color = androidx.compose.ui.graphics.Color.Blue)
+                    LoadingIndicator(color = Color.Blue)
             }
         })
 }

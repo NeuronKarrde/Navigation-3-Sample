@@ -1,4 +1,4 @@
-package com.issoft.navigationsample.navigation
+package com.issoft.navigationsample.navigation.navkeys
 
 import androidx.compose.runtime.saveable.Saver
 import androidx.navigation3.runtime.NavKey
@@ -18,24 +18,24 @@ open class NestedScreen: NavKey {
     data class WorkoutDetails(val workoutId: String) : NestedScreen()
 }
 
-@kotlinx.serialization.Serializable
+@Serializable
 sealed class BottomBarScreen(
     val icon: Int,
     val title: String,
 ): NestedScreen() {
-    @kotlinx.serialization.Serializable
+    @Serializable
     data object Home : BottomBarScreen(
         icon = R.drawable.home,
         title = "Home"
     )
 
-    @kotlinx.serialization.Serializable
+    @Serializable
     data object Workouts : BottomBarScreen(
         icon = R.drawable.search,
         title = "Workouts"
     )
 
-    @kotlinx.serialization.Serializable
+    @Serializable
     data object MyJourney : BottomBarScreen(
         icon = R.drawable.person,
         title = "My Journey"

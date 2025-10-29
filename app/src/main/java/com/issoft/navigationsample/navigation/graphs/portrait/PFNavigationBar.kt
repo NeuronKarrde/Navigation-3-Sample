@@ -1,4 +1,4 @@
-package com.issoft.navigationsample.presentation
+package com.issoft.navigationsample.navigation.graphs.portrait
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -11,9 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.issoft.navigationsample.navigation.BottomBarScreen
-import com.issoft.navigationsample.navigation.BottomBarScreenSaver
-import com.issoft.navigationsample.navigation.bottomBarItems
+import com.issoft.navigationsample.navigation.navkeys.BottomBarScreen
+import com.issoft.navigationsample.navigation.navkeys.BottomBarScreenSaver
+import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 
 @Composable
 fun PFNavigationBar(backStack : NavBackStack<NavKey>) {

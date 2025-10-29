@@ -1,6 +1,7 @@
-package com.issoft.navigationsample.features.workouts
+package com.issoft.navigationsample.features.workouts.workoutdetails
 
 import androidx.lifecycle.ViewModel
+import com.issoft.navigationsample.features.workouts.WorkoutsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

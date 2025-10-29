@@ -1,4 +1,4 @@
-package com.issoft.navigationsample.features.workouts
+package com.issoft.navigationsample.features.workouts.workoutdetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

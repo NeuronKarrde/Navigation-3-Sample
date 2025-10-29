@@ -1,22 +1,24 @@
-package com.issoft.navigationsample.presentation
+package com.issoft.navigationsample.navigation.graphs
 
 import android.net.Uri
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.issoft.navigationsample.features.auth.AuthRepository
-import com.issoft.navigationsample.features.auth.SignInScreen
-import com.issoft.navigationsample.features.auth.WalkthroughScreen
-import com.issoft.navigationsample.navigation.Screen
+import com.issoft.navigationsample.features.auth.views.SignInScreen
+import com.issoft.navigationsample.features.auth.views.WalkthroughScreen
+import com.issoft.navigationsample.navigation.navkeys.Screen
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import org.koin.compose.koinInject
 
 @Composable
-fun RootGraph(deepLinks: MutableSharedFlow<Uri>){
+fun RootGraph(deepLinks: MutableSharedFlow<Uri>, windowSize : WindowSizeClass){
     val nestedDeepLinkFlow = MutableSharedFlow<Uri>(replay = 1)
     val repo: AuthRepository = koinInject()
 
@@ -41,6 +43,10 @@ fun RootGraph(deepLinks: MutableSharedFlow<Uri>){
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull()},
+//        entryDecorators = listOf(
+//            rememberViewModelStoreNavEntryDecorator(),
+//            rememberSaveableStateHolderNavEntryDecorator(),
+//        ),
         entryProvider = entryProvider {
             entry<Screen.AppWalkthrough> {
                 WalkthroughScreen(onLoginStarted = {
@@ -54,7 +60,7 @@ fun RootGraph(deepLinks: MutableSharedFlow<Uri>){
                 })
             }
             entry<Screen.NestedGraph> {
-                NestedGraph(nestedDeepLinkFlow)
+                NestedGraph(nestedDeepLinkFlow, windowSize)
             }
         }
     )

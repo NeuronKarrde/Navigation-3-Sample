@@ -6,10 +6,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.issoft.navigationsample.presentation.RootGraph
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import com.issoft.navigationsample.navigation.graphs.RootGraph
 import com.issoft.navigationsample.ui.theme.NavigationSampleTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
     private val deepLinkFlow = MutableSharedFlow<Uri>(replay = 1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NavigationSampleTheme {
-                RootGraph(deepLinkFlow)
+                val windowSizeClass : WindowSizeClass = calculateWindowSizeClass(this)
+                RootGraph(deepLinkFlow, windowSizeClass)
             }
         }
 

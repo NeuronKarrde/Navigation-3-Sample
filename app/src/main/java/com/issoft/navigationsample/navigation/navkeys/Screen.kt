@@ -1,4 +1,4 @@
-package com.issoft.navigationsample.navigation
+package com.issoft.navigationsample.navigation.navkeys
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
