@@ -9,12 +9,17 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    background = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -33,6 +38,36 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+@Immutable
+data class ExtraColors(
+    val success: Color,
+    val warning: Color,
+    val danger: Color,
+    val info: Color,
+)
+
+private object ExtraPalettes {
+    val Light = ExtraColors(
+        success = SuccessLight,
+        warning = WarningLight,
+        danger  = DangerLight,
+        info    = InfoLight,
+    )
+    val Dark = ExtraColors(
+        success = SuccessDark,
+        warning = WarningDark,
+        danger  = DangerDark,
+        info    = InfoDark,
+    )
+}
+
+private val LocalExtraColors = staticCompositionLocalOf { ExtraPalettes.Light }
+object AppThemeTokens {
+    val extraColors: ExtraColors
+        @Composable get() = LocalExtraColors.current
+}
+
+
 @Composable
 fun NavigationSampleTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -50,9 +85,14 @@ fun NavigationSampleTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val extra = if (darkTheme) ExtraPalettes.Dark else ExtraPalettes.Light
+
+    CompositionLocalProvider(LocalExtraColors provides extra){
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+
 }
