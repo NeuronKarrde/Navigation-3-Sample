@@ -43,6 +43,7 @@ class SignInViewModel(private val repo: AuthRepository) : ViewModel() {
             when(val result = repo.login(state.value.email, state.value.password)){
                 is LoginResult.Error -> {
                     _state.update { it.copy(isLoading = false, error = result.message) }
+                    _events.emit(SignInEvent.LoginFailed(result.message))
                 }
                 is LoginResult.Success -> {
                     _state.update { it.copy(isLoading = false, session = result.session) }
