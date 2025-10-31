@@ -15,6 +15,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
+    singleOf(::DialogService)
     single { UserPreferences(androidContext()) }
     singleOf(::WorkoutsRepository){bind<WorkoutsRepository>()}
     single<AuthRepository> { AuthRepositoryImpl(prefs = get()) }

@@ -3,6 +3,8 @@ package com.issoft.navigationsample.features.auth.viewmodel
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.issoft.navigationsample.controls.DialogOptions
+import com.issoft.navigationsample.controls.DialogService
 import com.issoft.navigationsample.features.auth.AuthRepository
 import com.issoft.navigationsample.features.auth.LoginResult
 import kotlinx.coroutines.channels.BufferOverflow
@@ -17,7 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SignInViewModel(private val repo: AuthRepository) : ViewModel() {
+class SignInViewModel(private val repo: AuthRepository, private val dialogService: DialogService) : ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state : StateFlow<SignInState> = _state.asStateFlow()
 
@@ -43,7 +45,7 @@ class SignInViewModel(private val repo: AuthRepository) : ViewModel() {
             when(val result = repo.login(state.value.email, state.value.password)){
                 is LoginResult.Error -> {
                     _state.update { it.copy(isLoading = false, error = result.message) }
-                    _events.emit(SignInEvent.LoginFailed(result.message))
+                    dialogService.showDialog(DialogOptions("Error", "Login failed"))
                 }
                 is LoginResult.Success -> {
                     _state.update { it.copy(isLoading = false, session = result.session) }

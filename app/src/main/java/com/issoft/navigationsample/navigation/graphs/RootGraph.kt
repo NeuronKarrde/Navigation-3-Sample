@@ -9,6 +9,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.issoft.navigationsample.controls.DialogRenderer
 import com.issoft.navigationsample.features.auth.AuthRepository
 import com.issoft.navigationsample.features.auth.views.SignInScreen
 import com.issoft.navigationsample.features.auth.views.WalkthroughScreen
@@ -64,4 +65,6 @@ fun RootGraph(deepLinks: MutableSharedFlow<Uri>, windowSize : WindowSizeClass){
             }
         }
     )
+
+    DialogRenderer()
 }

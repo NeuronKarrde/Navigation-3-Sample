@@ -52,7 +52,6 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
                   viewModel : SignInViewModel = koinViewModel()
 ){
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val openAlertDialog = remember { mutableStateOf(false) }
 
     // We can handle login success using event from viewmodel
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -62,9 +61,6 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
                 viewModel.events.collect{ e ->
                     if (e is SignInEvent.LoginSuccess) {
                         onLoginSuccess()
-                    }
-                    if (e is SignInEvent.LoginFailed) {
-                        openAlertDialog.value = true
                     }
                 }
             }
@@ -127,21 +123,6 @@ fun SignInScreen (onLoginSuccess: () -> Unit,
                 }
                 if (state.isLoading)
                     LoadingIndicator(color = Color.Blue)
-
-                when{
-                    openAlertDialog.value -> {
-                        AlertDialogExample(
-                            onDismissRequest = { openAlertDialog.value = false },
-                            onConfirmation = {
-                                openAlertDialog.value = false
-                                println("Confirmation registered") // Add logic here to handle confirmation.
-                            },
-                            dialogTitle = "Alert dialog example",
-                            dialogText = "This is an example of an alert dialog with buttons.",
-                            icon = Icons.Default.Info
-                        )
-                    }
-                }
             }
         })
 }
