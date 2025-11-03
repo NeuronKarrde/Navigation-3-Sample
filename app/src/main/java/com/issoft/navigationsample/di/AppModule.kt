@@ -1,5 +1,6 @@
 package com.issoft.navigationsample.di
 
+import com.issoft.navigationsample.controls.DialogService
 import com.issoft.navigationsample.features.auth.AuthRepository
 import com.issoft.navigationsample.features.auth.AuthRepositoryImpl
 import com.issoft.navigationsample.features.auth.UserPreferences

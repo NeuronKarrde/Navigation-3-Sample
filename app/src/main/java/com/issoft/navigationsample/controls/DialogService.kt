@@ -11,7 +11,7 @@ import org.koin.compose.koinInject
 data class DialogOptions(
     val title: String? = null,
     val message: String,
-    val onPrimaryButtonClick: (() -> Unit)? = null
+    val onPrimaryButtonClick: (() -> Unit)? = null,
     val onSecondaryButtonClick: (() -> Unit)? = null
 )
 

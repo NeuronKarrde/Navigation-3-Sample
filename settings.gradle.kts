@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -26,5 +27,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "NavigationSample"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+include(":networkapi")
