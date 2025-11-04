@@ -10,41 +10,42 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.issoft.navigationsample.features.checkin.navigation.render
-import com.issoft.navigationsample.features.home.navigation.render
-import com.issoft.navigationsample.features.profile.navigation.render
-import com.issoft.navigationsample.features.workouts.main.navigation.render
+import com.issoft.navigationsample.features.home.navigation.Render
+import com.issoft.navigationsample.features.profile.navigation.Render
 import com.issoft.navigationsample.navigation.drawer.PFModalDrawerSheet
 import com.issoft.navigationsample.navigation.graphs.controls.BackButton
 import com.issoft.navigationsample.navigation.graphs.controls.HamburgerMenu
-import com.issoft.navigationsample.navigation.navkeys.BottomBarScreen
-import com.issoft.navigationsample.navigation.navkeys.NestedScreen
+import com.issoft.navigationsample.navigation.navkeys.Home
+import com.issoft.navigationsample.navigation.navkeys.MyJourney
+import com.issoft.navigationsample.workouts.navigation.Render
+import com.issoft.navigationsample.workouts.navigation.WorkoutsMain
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NestedGraphPortrait(deepLinks: MutableSharedFlow<Uri>){
+fun NestedGraphPortrait(rootBackStack : NavBackStack<NavKey>, deepLinks: MutableSharedFlow<Uri>){
 
-    val backStack = rememberNavBackStack(BottomBarScreen.Home)
+    val backStack = rememberNavBackStack(Home)
 
-    fun handleDeepLink(uri : Uri){
-        if (uri.path?.contains("mobile/workouts") == true){
-            backStack.add(NestedScreen.WorkoutDetails(workoutId = uri.path!!.substringAfterLast("/")))
-        }
-    }
+//    fun handleDeepLink(uri : Uri){
+//        if (uri.path?.contains("mobile/workouts") == true){
+//            backStack.add(NestedScreen.WorkoutDetails(workoutId = uri.path!!.substringAfterLast("/")))
+//        }
+//    }
 
-    LaunchedEffect(Unit) {
-        deepLinks.collect { handleDeepLink(it) }
-    }
+//    LaunchedEffect(Unit) {
+//        deepLinks.collect { handleDeepLink(it) }
+//    }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -58,11 +59,11 @@ fun NestedGraphPortrait(deepLinks: MutableSharedFlow<Uri>){
                 TopAppBar(
                     title = {Text(backStack.last().toString())},
                     navigationIcon = {
-                        if (backStack.size == 1) HamburgerMenu(drawerState, scope) else BackButton(backStack)
+                        HamburgerMenu(drawerState, scope)
                     })
              },
             bottomBar = {
-                if (backStack.size == 1)  PFNavigationBar(backStack) else null
+                PFNavigationBar(backStack)
             }
         ){
             NavDisplay(
@@ -73,11 +74,9 @@ fun NestedGraphPortrait(deepLinks: MutableSharedFlow<Uri>){
                     rememberSaveableStateHolderNavEntryDecorator(),
                 ),
                 entryProvider = entryProvider {
-                    entry<BottomBarScreen.Home>() { key -> key.render(backStack) }
-                    entry<BottomBarScreen.Workouts>() { key -> key.render(backStack) }
-                    entry<BottomBarScreen.MyJourney>() { key -> key.render(backStack) }
-                    entry<NestedScreen.CheckIn>() { key -> key.render(backStack) }
-                    entry<NestedScreen.WorkoutDetails>() { key -> key.render(backStack, key.workoutId) }
+                    entry<Home>() { key -> key.Render(rootBackStack) }
+                    entry<WorkoutsMain>() { key -> key.Render(rootBackStack) }
+                    entry<MyJourney>() { key -> key.Render(rootBackStack) }
                 }
             )
         }

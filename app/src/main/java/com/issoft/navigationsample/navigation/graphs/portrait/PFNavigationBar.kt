@@ -11,22 +11,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.issoft.navigationsample.navigation.navkeys.BottomBarScreen
+import com.issoft.navigationsample.navigation.navkeys.BottomBarInfo
 import com.issoft.navigationsample.navigation.navkeys.BottomBarScreenSaver
+import com.issoft.navigationsample.navigation.navkeys.Home
+import com.issoft.navigationsample.navigation.navkeys.InfoForBottomBar
 import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 
 @Composable
 fun PFNavigationBar(backStack : NavBackStack<NavKey>) {
-    var currentBottomBarScreen: BottomBarScreen by rememberSaveable(
+    var currentBottomBarScreen: NavKey by rememberSaveable(
         stateSaver = BottomBarScreenSaver
-    ) { mutableStateOf(BottomBarScreen.Home) }
+    ) { mutableStateOf(Home) }
     NavigationBar {
         bottomBarItems.forEach { destination ->
+            val info : BottomBarInfo = InfoForBottomBar(destination)
             NavigationBarItem(
                 selected = currentBottomBarScreen == destination,
                 icon = {
                     Icon(
-                        painter = painterResource(destination.icon),
+                        painter = painterResource(info.icon),
                         contentDescription = "$destination icon"
                     )
                 },

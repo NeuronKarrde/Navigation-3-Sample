@@ -30,3 +30,8 @@ rootProject.name = "NavigationSample"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":networkapi")
+include(":features:checkin")
+include(":features:referfriend")
+include(":features:workouts")
+include(":core:navigation")
+include(":features:login")

@@ -17,16 +17,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.issoft.navigationsample.navigation.navkeys.BottomBarScreen
+import com.issoft.navigationsample.navigation.navkeys.BottomBarInfo
 import com.issoft.navigationsample.navigation.navkeys.BottomBarScreenSaver
+import com.issoft.navigationsample.navigation.navkeys.Home
+import com.issoft.navigationsample.navigation.navkeys.InfoForBottomBar
 import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 
 
 @Composable
 fun CustomNavigationRail(backStack : NavBackStack<NavKey>, modifier: Modifier = Modifier) {
-    var currentBottomBarScreen: BottomBarScreen by rememberSaveable(
+    var currentBottomBarScreen: NavKey by rememberSaveable(
         stateSaver = BottomBarScreenSaver
-    ) { mutableStateOf(BottomBarScreen.Home) }
+    ) { mutableStateOf(Home) }
 
     NavigationRail(
         modifier = modifier.padding(start = 8.dp, end = 8.dp),
@@ -40,15 +42,16 @@ fun CustomNavigationRail(backStack : NavBackStack<NavKey>, modifier: Modifier = 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             bottomBarItems.forEach { destination ->
+                val info : BottomBarInfo = InfoForBottomBar(destination)
                 NavigationRailItem(
                     icon = {
                         Icon(
-                            painter = painterResource(destination.icon),
+                            painter = painterResource(info.icon),
                             contentDescription = null
                         )
                     },
                     label = {
-                        Text(text = destination.title)
+                        Text(text = info.title)
                     },
                     selected = currentBottomBarScreen == destination,
                     onClick = {
