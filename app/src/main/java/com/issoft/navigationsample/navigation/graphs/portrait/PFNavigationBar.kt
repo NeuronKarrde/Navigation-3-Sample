@@ -11,9 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.issoft.core.navigation.BottomBarScreen
 import com.issoft.navigationsample.navigation.navkeys.BottomBarInfo
 import com.issoft.navigationsample.navigation.navkeys.BottomBarScreenSaver
-import com.issoft.navigationsample.navigation.navkeys.Home
 import com.issoft.navigationsample.navigation.navkeys.InfoForBottomBar
 import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 
@@ -21,7 +21,7 @@ import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 fun PFNavigationBar(backStack : NavBackStack<NavKey>) {
     var currentBottomBarScreen: NavKey by rememberSaveable(
         stateSaver = BottomBarScreenSaver
-    ) { mutableStateOf(Home) }
+    ) { mutableStateOf(BottomBarScreen.Dashboard) }
     NavigationBar {
         bottomBarItems.forEach { destination ->
             val info : BottomBarInfo = InfoForBottomBar(destination)

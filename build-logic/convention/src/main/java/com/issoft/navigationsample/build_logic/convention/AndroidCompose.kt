@@ -33,6 +33,8 @@ internal fun Project.configureAndroidCompose(
             implementation(libs.findLibrary("kotlinx.serialization.core").get())
             implementation(libs.findLibrary("kotlinx.serialization.json").get())
 
+            implementation(project(":core:navigation"))
+
 
             androidTestImplementation(platform(bom))
             debugImplementation(libs.findLibrary("androidx.ui.tooling").get())

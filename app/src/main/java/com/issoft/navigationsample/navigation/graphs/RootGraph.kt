@@ -8,11 +8,10 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.issoft.core.navigation.Screen
 import com.issoft.features.checkin.navigation.installCheckInGraph
 import com.issoft.navigationsample.controls.DialogRenderer
-import com.issoft.navigationsample.features.login.navigation.Splash
 import com.issoft.navigationsample.features.login.navigation.installLoginGraph
-import com.issoft.navigationsample.navigation.navkeys.Screen
 import com.issoft.navigationsample.referfriend.navigation.installReferFriendGraph
 import com.issoft.navigationsample.workouts.navigation.installWorkoutsGraph
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +20,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 fun RootGraph(deepLinks: MutableSharedFlow<Uri>, windowSize : WindowSizeClass){
     val nestedDeepLinkFlow = MutableSharedFlow<Uri>(replay = 1)
 
-    val backStack = rememberNavBackStack(Splash)
+    val backStack = rememberNavBackStack(Screen.Splash)
 
 //    fun handleDeepLink(uri : Uri){
 //        if(runBlocking { repo.isAuthenticated() }){

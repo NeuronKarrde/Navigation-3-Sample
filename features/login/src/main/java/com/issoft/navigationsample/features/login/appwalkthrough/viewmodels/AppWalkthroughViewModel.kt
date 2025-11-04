@@ -3,7 +3,7 @@ package com.issoft.navigationsample.features.login.appwalkthrough.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.issoft.navigationsample.features.login.navigation.EnterEmail
+import com.issoft.core.navigation.Screen
 
 class AppWalkthroughViewModel(val backStack: NavBackStack<NavKey>) : ViewModel() {
     fun onAction(action: AppWalkThroughAction) {
@@ -18,6 +18,6 @@ class AppWalkthroughViewModel(val backStack: NavBackStack<NavKey>) : ViewModel()
     }
 
     private fun openEnterEmail() {
-        backStack.add(EnterEmail)
+        backStack.add(Screen.EnterEmail)
     }
 }

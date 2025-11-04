@@ -18,15 +18,12 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.issoft.core.navigation.BottomBarScreen
 import com.issoft.navigationsample.features.home.navigation.Render
 import com.issoft.navigationsample.features.profile.navigation.Render
 import com.issoft.navigationsample.navigation.drawer.PFModalDrawerSheet
-import com.issoft.navigationsample.navigation.graphs.controls.BackButton
 import com.issoft.navigationsample.navigation.graphs.controls.HamburgerMenu
-import com.issoft.navigationsample.navigation.navkeys.Home
-import com.issoft.navigationsample.navigation.navkeys.MyJourney
 import com.issoft.navigationsample.workouts.navigation.Render
-import com.issoft.navigationsample.workouts.navigation.WorkoutsMain
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
@@ -35,7 +32,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 @Composable
 fun NestedGraphPortrait(rootBackStack : NavBackStack<NavKey>, deepLinks: MutableSharedFlow<Uri>){
 
-    val backStack = rememberNavBackStack(Home)
+    val backStack = rememberNavBackStack(BottomBarScreen.Dashboard)
 
 //    fun handleDeepLink(uri : Uri){
 //        if (uri.path?.contains("mobile/workouts") == true){
@@ -74,9 +71,9 @@ fun NestedGraphPortrait(rootBackStack : NavBackStack<NavKey>, deepLinks: Mutable
                     rememberSaveableStateHolderNavEntryDecorator(),
                 ),
                 entryProvider = entryProvider {
-                    entry<Home>() { key -> key.Render(rootBackStack) }
-                    entry<WorkoutsMain>() { key -> key.Render(rootBackStack) }
-                    entry<MyJourney>() { key -> key.Render(rootBackStack) }
+                    entry<BottomBarScreen.Dashboard>() { key -> key.Render(rootBackStack) }
+                    entry<BottomBarScreen.WorkoutsMain>() { key -> key.Render(rootBackStack) }
+                    entry<BottomBarScreen.MyJourneyMain>() { key -> key.Render(rootBackStack) }
                 }
             )
         }

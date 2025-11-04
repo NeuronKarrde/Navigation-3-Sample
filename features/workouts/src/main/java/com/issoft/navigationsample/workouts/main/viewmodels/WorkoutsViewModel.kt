@@ -3,8 +3,8 @@ package com.issoft.navigationsample.workouts.main.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.issoft.core.navigation.Screen
 import com.issoft.navigationsample.workouts.WorkoutsRepository
-import com.issoft.navigationsample.workouts.navigation.WorkoutDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -22,6 +22,6 @@ class WorkoutsViewModel(private val backStack: NavBackStack<NavKey>, private val
     }
 
     private fun openWorkout(id: String) {
-        backStack.add(WorkoutDetails(id))
+        backStack.add(Screen.WorkoutDetails(id))
     }
 }

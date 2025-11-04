@@ -17,9 +17,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.issoft.core.navigation.BottomBarScreen
 import com.issoft.navigationsample.navigation.navkeys.BottomBarInfo
 import com.issoft.navigationsample.navigation.navkeys.BottomBarScreenSaver
-import com.issoft.navigationsample.navigation.navkeys.Home
 import com.issoft.navigationsample.navigation.navkeys.InfoForBottomBar
 import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 
@@ -28,7 +28,7 @@ import com.issoft.navigationsample.navigation.navkeys.bottomBarItems
 fun CustomNavigationRail(backStack : NavBackStack<NavKey>, modifier: Modifier = Modifier) {
     var currentBottomBarScreen: NavKey by rememberSaveable(
         stateSaver = BottomBarScreenSaver
-    ) { mutableStateOf(Home) }
+    ) { mutableStateOf(BottomBarScreen.Dashboard) }
 
     NavigationRail(
         modifier = modifier.padding(start = 8.dp, end = 8.dp),

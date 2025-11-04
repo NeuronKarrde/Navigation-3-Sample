@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.issoft.core.navigation.Screen
 import com.issoft.navigationsample.features.login.AuthRepository
 import com.issoft.navigationsample.features.login.LoginResult
 import kotlinx.coroutines.channels.BufferOverflow
@@ -47,7 +48,7 @@ class EnterEmailViewModel(private val backStack: NavBackStack<NavKey>, private v
                 }
                 is LoginResult.Success -> {
                     backStack.clear()
-//                    backStack.add()
+                    backStack.add(Screen.NestedGraph)
                 }
             }
         }

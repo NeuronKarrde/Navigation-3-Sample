@@ -3,7 +3,7 @@ package com.issoft.navigationsample.features.home
 import androidx.lifecycle.ViewModel
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.issoft.features.checkin.navigation.CheckIn
+import com.issoft.core.navigation.Screen
 
 class HomeViewModel(private val backStack: NavBackStack<NavKey>) : ViewModel() {
     fun onAction(action: HomeAction) {
@@ -14,6 +14,6 @@ class HomeViewModel(private val backStack: NavBackStack<NavKey>) : ViewModel() {
     }
 
     private fun openCheckIn() {
-        backStack.add(CheckIn)
+        backStack.add(Screen.CheckIn)
     }
 }

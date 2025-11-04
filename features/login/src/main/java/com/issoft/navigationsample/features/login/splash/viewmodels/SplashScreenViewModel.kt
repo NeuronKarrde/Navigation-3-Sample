@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.issoft.core.navigation.Screen
 import com.issoft.navigationsample.features.login.AuthRepository
-import com.issoft.navigationsample.features.login.navigation.AppWalkThrough
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -19,10 +19,10 @@ class SplashScreenViewModel(val backStack: NavBackStack<NavKey>, val repository:
         viewModelScope.launch {
             try {
                 val authed = repository.isAuthenticated()
-//                val next = if (authed) Screen.NestedGraph else Screen.AppWalkthrough
+                val next = if (authed) Screen.NestedGraph else Screen.AppWalkThrough
 
                 backStack.removeLastOrNull()
-                backStack.add(AppWalkThrough)
+                backStack.add(next)
             }
             finally {
                 isLoading = false

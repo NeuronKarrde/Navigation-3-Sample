@@ -31,4 +31,5 @@ dependencies {
     implementation(projects.features.login)
     implementation(projects.features.workouts)
     implementation(projects.features.referfriend)
+    implementation(projects.core.navigation)
 }
