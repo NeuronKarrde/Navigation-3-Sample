@@ -3,11 +3,13 @@ package com.issoft.navigationsample.navigation.graphs
 import android.net.Uri
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.issoft.core.navigation.DeeplinkParser
 import com.issoft.core.navigation.Screen
 import com.issoft.features.checkin.navigation.installCheckInGraph
 import com.issoft.navigationsample.controls.DialogRenderer
@@ -22,20 +24,19 @@ fun RootGraph(deepLinks: MutableSharedFlow<Uri>, windowSize : WindowSizeClass){
 
     val backStack = rememberNavBackStack(Screen.Splash)
 
-//    fun handleDeepLink(uri : Uri){
-//        if(runBlocking { repo.isAuthenticated() }){
-//            return
-//        }
-//        if (uri.path?.contains("mobile/workouts") == true){
-//            backStack.clear()
-//            backStack.add(Screen.NestedGraph)
-//            uri.let { nestedDeepLinkFlow.tryEmit(it) }
-//        }
-//    }
+    fun handleDeepLink(uri : Uri){
+        if (!backStack.contains(Screen.NestedGraph)) {
+            backStack.clear()
+            backStack.add(Screen.NestedGraph)
+        }
 
-//    LaunchedEffect(Unit) {
-//        deepLinks.collect { handleDeepLink(it) }
-//    }
+        val key = DeeplinkParser.parse(uri.path!!)
+        key?.let { backStack.add(it) }
+    }
+
+    LaunchedEffect(Unit) {
+        deepLinks.collect { handleDeepLink(it) }
+    }
 
     NavDisplay(
         backStack = backStack,

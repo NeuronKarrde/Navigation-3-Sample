@@ -48,7 +48,7 @@ fun NestedGraphPortrait(rootBackStack : NavBackStack<NavKey>, deepLinks: Mutable
     val scope = rememberCoroutineScope()
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = {PFModalDrawerSheet()},
+        drawerContent = {PFModalDrawerSheet(rootBackStack)},
     )
     {
         Scaffold(

@@ -8,9 +8,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
-class UserPreferences(private val context: Context) {
-    private val KEY_USERNAME = stringPreferencesKey("username")
-    private val KEY_TOKEN = stringPreferencesKey("token")
+class UserPreferences(
+    private val context: Context
+) {
+    companion object {
+        private val KEY_USERNAME = stringPreferencesKey("username")
+        private val KEY_TOKEN = stringPreferencesKey("token")
+    }
 
     val session: Flow<UserSession?> =
         context.dataStore.data.map { prefs ->

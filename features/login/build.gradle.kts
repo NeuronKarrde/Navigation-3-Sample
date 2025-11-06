@@ -18,6 +18,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.koin.android)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
